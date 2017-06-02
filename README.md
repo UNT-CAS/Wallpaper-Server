@@ -18,7 +18,7 @@ We also use it for Windows because we can only specify one file (via GPO) to for
 
 ## Query String Parameters
 
-See for yourself with two quick examples (please feel free to play; [submit an issue when you break it](https://git.cas.unt.edu/desktop/Wallpaper-Server/issues)):
+See for yourself with two quick examples (please feel free to play; [submit an issue when you break it](https://github.com/UNT-CAS-ITS/Wallpaper-Server/issues)):
 
 - **4:3**: http://wallpaper.cas.unt.edu?w=800&h=600
 - **16:9**: http://wallpaper.cas.unt.edu?w=848&h=480
