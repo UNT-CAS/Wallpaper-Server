@@ -16,19 +16,27 @@ The main issue presented iteself in OS X when the Lock Screen Wallpaper image ha
 
 We also use it for Windows because we can only specify one file (via GPO) to force as the Lock Screen Wallpaper. Since logos stretch and stretched logos make VIPs sad ... we decided we needed to to be a little more creative with choosing the image for the Lock Screen Wallpaper. This server allows an unskewed image with the the exact resolution to be used for the Lock Screen Wallpaper.
 
+## Getting *Your* Assets In
+
+If you're going to use this, you're likely going to want a simple way of getting your assets loaded into the container. Well, there's an [environment variable for that](#environment-variables): `WALLPAPER_CURL_CONFIG`.
+
+When the container launches, before Apache runs (via [run.sh](docker/apache/run.sh)) we pull in the assets defined in the [curl config](docker/apache/curl.config) file. During this process, all assets are purged from the [assets directory](html/assets) and your assets are downloaded.
+
+For more detail about the format of the config file, [see the curl man page](https://curl.haxx.se/docs/manpage.html#-K). Keep in mind, the working directory during this is the [assets directory](html/assets), so there's no need to specify a file name or path. See our development [curl config](docker/apache/curl.config) file for some guidance.
+
 ## Query String Parameters
 
 See for yourself with two quick examples (please feel free to play; [submit an issue when you break it](https://github.com/UNT-CAS-ITS/Wallpaper-Server/issues)):
 
-- **4:3**: http://wallpaper.cas.unt.edu?w=800&h=600
-- **16:9**: http://wallpaper.cas.unt.edu?w=848&h=480
+- **4:3**: https://unt-wallpaper-dev.azurewebsites.net?w=800&h=600
+- **16:9**: https://unt-wallpaper-dev.azurewebsites.net?w=848&h=480
 
 By default, this will return a BMP; for windows.
 
 However, OS X needs PNG with Alpha Channel:
 
-- **4:3**: http://wallpaper.cas.unt.edu?w=800&h=600&f=png
-- **16:9**: http://wallpaper.cas.unt.edu?w=848&h=480&f=png
+- **4:3**: https://unt-wallpaper-dev.azurewebsites.net?w=800&h=600&f=png
+- **16:9**: https://unt-wallpaper-dev.azurewebsites.net?w=848&h=480&f=png
 
 **Note:** Only `bmp` and `png` are supported formats.
 
@@ -59,7 +67,7 @@ Here's a list and quick desciption of all of the current *Query String Parameter
 
 Cached requests are here; in case you're curious:
 
-- http://wallpaper.cas.unt.edu/cache
+- https://unt-wallpaper-dev.azurewebsites.net/cache
 
 ***Note:*** *Cached files are `touch`ed everytime they are accessed.*
 ***Note:*** *Server time is in [GMT](http://www.lmgtfy.com/?q=What+is+GMT%3F).*
@@ -108,10 +116,11 @@ environment:
   - WALLPAPER_BRM=0
 ```
 
-Addtionally, there's one additional environment variable available:
+Addtionally, there are a couple of additional environment variable available:
 
 | Parameter | Name | Default Value | Expected Value(s)/Type | Description | 
 | --- | --- | --- | --- | --- |
 | `WALLPAPER_README` | ReadMe | `https://github.com/UNT-CAS-ITS/Wallpaper-Server` | A URL. | This is used to overwrite the error messages, in case you've forked this project and would prefer to point to it. |
+| `WALLPAPER_CURL_CONFIG` | Curl Config | `https://raw.githubusercontent.com/UNT-CAS-ITS/Wallpaper-Server/master/docker/apache/curl.config` | A URL. | This is used to specify a custom curl config file. This is pretty much a required environment variable if you're going to use this for your own purposes. |
 
 **Note:** Query string parameters (aka: GET parameters) will overwrite environment variable settings.
