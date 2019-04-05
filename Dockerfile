@@ -10,7 +10,7 @@ ADD docker/php/php.ini /usr/local/etc/php/php.ini
 
 
 # Install OS Requirements && PHP Core Extensions
-RUN requirements="wget git libfreetype6-dev libjpeg62-turbo-dev libpng12-dev"  \
+RUN requirements="wget git libfreetype6-dev libjpeg62-turbo-dev libpng-dev"  \
     && apt-get update && apt-get install -y $requirements \
     && rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
