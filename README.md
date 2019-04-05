@@ -122,5 +122,5 @@ Addtionally, there are a couple of additional environment variable available:
 | --- | --- | --- | --- | --- |
 | `WALLPAPER_README` | ReadMe | `https://github.com/UNT-CAS-ITS/Wallpaper-Server` | A URL. | This is used to overwrite the error messages, in case you've forked this project and would prefer to point to it. |
 | `WALLPAPER_CURL_CONFIG` | Curl Config | `https://raw.githubusercontent.com/UNT-CAS-ITS/Wallpaper-Server/master/docker/apache/curl.config` | A URL. | This is used to specify a custom curl config file. This is pretty much a required environment variable if you're going to use this for your own purposes. |
-
+| `WALLPAPER_CURL_CONFIG_HEADER` | Curl Header | `NULL` | A Header, like: `PRIVATE-TOKEN:R2WwRii944lO6d7bvk8FDo` | If a private token is needed to authenticate to your URL, you can supply it here. |
 **Note:** Query string parameters (aka: GET parameters) will overwrite environment variable settings.
